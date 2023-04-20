@@ -204,7 +204,7 @@ def clock_out(job):
             # record the end time and date
             job_data[-1]["end_time"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             
-            # calculate the hours, rounding up to the nearest hour
+            # calculate the hours, rounding up to the nearest 30 minutes
             start_time = datetime.datetime.strptime(job_data[-1]["start_time"], "%Y-%m-%d %H:%M:%S")
             end_time = datetime.datetime.strptime(job_data[-1]["end_time"], "%Y-%m-%d %H:%M:%S")
             job_data[-1]["hours"] = math.ceil((end_time - start_time).total_seconds() / 3600)
@@ -256,9 +256,28 @@ def clock_in(job):
 #              month should be printed after each month.
 # Parameters:
 #   - the job the user selected
-# def view_timesheet(job):
+def view_timesheet(job):
+    with open(job["filename"], "r") as job_file:
+        job_data = json.load(job_file)
+        if len(job_data) == 0:
+            print("You have no shifts for " + job["name"])
+        else:
+            # sort the job_data by start_time
+            job_data = sorted(job_data, key=lambda k: k["start_time"])
 
+            # print the shifts in a formatted table using the tabulate library
+            print(tabulate(job_data, headers="keys", tablefmt="grid", showindex="always"))
 
+            # print the total hours for each month
+            print("Total Hours:")
+            total_hours = 0
+            for i in range(len(job_data)):
+                total_hours += job_data[i]["hours"]
+                if i == len(job_data) - 1:
+                    print(str(job_data[i]["start_time"])[:7] + ": " + str(total_hours))
+                elif job_data[i]["start_time"][:7] != job_data[i + 1]["start_time"][:7]:
+                    print(str(job_data[i]["start_time"])[:7] + ": " + str(total_hours))
+                    total_hours = 0
 
 # Function: add_notes
 # Description: Prompts the user for a shift to add notes to. The user is then
@@ -275,16 +294,15 @@ def add_notes(job):
             job_data = sorted(job_data, key=lambda k: k["start_time"])
 
             # print the shifts in a formatted table using the tabulate library
-            print(tabulate.tabulate(job_data, headers="keys", tablefmt="grid", showindex="always"))
+            print(tabulate(job_data, headers="keys", tablefmt="grid", showindex="always"))
 
             # prompt the user for a shift to add notes to
             print("Which shift would you like to add notes to?")
             selection = input("> ")
             if selection.isdigit():
-                selection = int(selection)
-                if selection > 0 and selection <= len(job_data):
+                if int(selection) < len(job_data):
                     print("Enter your notes:")
-                    job_data[selection - 1]["notes"] = input("> ")
+                    job_data[int(selection)]["notes"] = input("> ")
                     with open(job["filename"], "w") as job_file:
                         json.dump(job_data, job_file)
                 else:
