@@ -20,7 +20,7 @@ TimeClock is a lightweight, persistent command-line interface (CLI) application 
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/timeclock-cli.git
+git clone https://github.com/hunter-sutton/timeclock-cli.git
 cd timeclock-cli
 
 ```
@@ -36,7 +36,7 @@ pip install tabulate
 
 3. **Run the application:**
 ```bash
-python main.py
+python timeclock.py
 
 ```
 
