@@ -1,0 +1,4 @@
+*.json
+!user_example.json
+!project_example.json
+venv

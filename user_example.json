@@ -1,0 +1,15 @@
+{
+  "name": "Jane Doe",
+  "jobs": [
+    {
+      "name": "Web Development",
+      "filename": "project_example.json",
+      "pay": 45.0
+    },
+    {
+      "name": "Coffee Shop",
+      "filename": "coffee_shop.json",
+      "pay": 16.5
+    }
+  ]
+}

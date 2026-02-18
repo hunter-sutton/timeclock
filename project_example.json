@@ -1,0 +1,23 @@
+[
+  {
+    "start_time": "2023-10-25 09:00:00",
+    "end_time": "2023-10-25 17:00:00",
+    "hours": 8.0,
+    "clocked_in": false,
+    "notes": "Initial client meeting and project setup."
+  },
+  {
+    "start_time": "2023-10-26 14:00:00",
+    "end_time": "2023-10-26 18:30:00",
+    "hours": 4.5,
+    "clocked_in": false,
+    "notes": "Frontend component debugging."
+  },
+  {
+    "start_time": "2023-10-27 22:00:00",
+    "end_time": "2023-10-28 02:00:00",
+    "hours": 4.0,
+    "clocked_in": false,
+    "notes": "Late night server migration."
+  }
+]
